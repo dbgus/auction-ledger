@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PropertyInfo from "./components/property-info";
 import Investment from "./components/investment";
 import StepComponent from "./components/step";
 import Income from "./components/Income";
 import Spend from "./components/spend";
+import Auth from "./components/auth";
 
 const stepLabel = ["매물 정보", "투자정보", "수입", "지출"];
 
@@ -116,21 +118,31 @@ function App() {
   ];
 
   return (
-    <div
-      style={{
-        width: "50%",
-        margin: "0 auto",
-        marginTop: 100,
-        marginBottom: 100,
-      }}
-    >
-      <StepComponent
-        step={step}
-        stepLabel={stepLabel}
-        stepChange={(step: number) => setStep(step)}
-        currentViewComponent={components[step]}
-      />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/auth" element={<Auth />} />
+        <Route
+          path="/ledger/:id"
+          element={
+            <div
+              style={{
+                width: "50%",
+                margin: "0 auto",
+                marginTop: 100,
+                marginBottom: 100,
+              }}
+            >
+              <StepComponent
+                step={step}
+                stepLabel={stepLabel}
+                stepChange={(step: number) => setStep(step)}
+                currentViewComponent={components[step]}
+              />
+            </div>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
