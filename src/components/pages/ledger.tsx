@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { requestPost } from "../../utils/axios";
 import Income from "../Income";
 import Investment from "../investment";
@@ -53,13 +55,18 @@ const step4InitContent: Istep4InitContent = {
   localIncomeTax: 0,
 };
 const Ledger = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   const [step, setStep] = useState<number>(0);
   const [step1Content, setStep1Content] = useState(step1InitContent);
   const [step2Content, setStep2Content] = useState(step2InitContent);
   const [step2Summary, setStep2Summary] = useState(step2InitSummary);
   const [step3Content, setStep3Content] = useState(step3InitContent);
   const [step4Content, setStep4Content] = useState(step4InitContent);
-
+  useEffect(() => {
+    if (id) {
+    }
+  });
   useEffect(() => {
     setStep2Summary({
       ...step2Summary,
@@ -114,18 +121,15 @@ const Ledger = () => {
     />,
   ];
   const createLedgerRequest = () => {
-    console.log({
-      ...step1Content,
-      ...step2Content,
-      ...step3Content,
-      ...step4Content,
-    });
     requestPost(
       "/ledger",
       {},
       { ...step1Content, ...step2Content, ...step3Content, ...step4Content }
-    ).then((res) => {});
+    ).then(() => {
+      navigate("/");
+    });
   };
+
   return (
     <div
       style={{

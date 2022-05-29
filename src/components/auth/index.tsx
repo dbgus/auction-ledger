@@ -191,7 +191,7 @@ const Auth = () => {
     // check token
     const token = localStorage.getItem("token");
     if (token) navigate("/");
-  }, []);
+  }, [navigate]);
 
   const loginRequest = (loginInfo: LoginContentType) => {
     requestPost("/auth/signin", {}, loginInfo).then((res: any) => {
