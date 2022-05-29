@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { requestPost } from "../../utils/axios";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Income from "../Income";
 import Investment from "../investment";
 import PropertyInfo from "../property-info";
@@ -56,6 +57,7 @@ const step4InitContent: Istep4InitContent = {
 };
 const Ledger = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams();
   const [step, setStep] = useState<number>(0);
   const [step1Content, setStep1Content] = useState(step1InitContent);
@@ -130,6 +132,15 @@ const Ledger = () => {
     });
   };
 
+  const moveToMain = () => {
+    if (location.pathname.includes("update") || !id) {
+      if (window.confirm("작성하신 내용이 저장되지 않습니다.")) {
+        navigate("/");
+      }
+    }
+    navigate("/");
+  };
+
   return (
     <div
       style={{
@@ -139,6 +150,10 @@ const Ledger = () => {
         marginBottom: 100,
       }}
     >
+      <ArrowBackIcon
+        sx={{ position: "fixed", top: 30, left: 30, cursor: "pointer" }}
+        onClick={() => moveToMain()}
+      />
       <StepComponent
         step={step}
         stepLabel={stepLabel}

@@ -47,7 +47,7 @@ const LedgerList = () => {
       <Divider />
       <Stack spacing={2} sx={{ marginTop: 2 }}>
         {ledgerList.map((ledger, index) => (
-          <Item>
+          <Item key={index}>
             <Grid container>
               <Grid item xs={1}>
                 <p>{index + 1}</p>
