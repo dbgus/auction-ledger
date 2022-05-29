@@ -10,7 +10,7 @@ export async function requestGet<T>(
 ): Promise<T> {
   const result = await axios.get(url, {
     params: urlParameters,
-    headers: { Authorization: `Bearer localStorage.getItem("token")` || "" },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` || "" },
   });
 
   return result.data as T;
@@ -23,7 +23,7 @@ export async function requestPost<T>(
 ): Promise<T> {
   const result = await axios.post(url, data, {
     params: urlParameters,
-    headers: { Authorization: `Bearer localStorage.getItem("token")` || "" },
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` || "" },
   });
 
   return result.data as T;

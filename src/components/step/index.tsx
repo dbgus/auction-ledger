@@ -6,6 +6,7 @@ interface StepComponentProps {
   stepLabel: string[];
   stepChange: (e: number) => void;
   currentViewComponent: React.ReactElement;
+  submit: () => void;
 }
 
 const StepComponent = ({
@@ -13,6 +14,7 @@ const StepComponent = ({
   stepLabel,
   stepChange,
   currentViewComponent,
+  submit,
 }: StepComponentProps) => {
   return (
     <>
@@ -42,8 +44,9 @@ const StepComponent = ({
         </Button>
         <Box sx={{ flex: "1 1 auto" }} />
         <Button
-          disabled={step === stepLabel.length}
-          onClick={() => stepChange(step + 1)}
+          onClick={() =>
+            step === stepLabel.length - 1 ? submit() : stepChange(step + 1)
+          }
         >
           {step === stepLabel.length - 1 ? "저장" : "다음"}
         </Button>
