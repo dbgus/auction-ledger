@@ -87,7 +87,7 @@ const LedgerDetail = () => {
                       <span style={{ width: 120, display: "inline-block" }}>
                         대출
                       </span>
-                      {ledger.loanAmount.toLocaleString()}원 (비율 대출 비율
+                      {ledger.loanAmount.toLocaleString()}원 (대출 비율
                       {(ledger.loanAmount / ledger.bid) * 10}%)
                     </div>
                     <div>

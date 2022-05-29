@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Auth from "./components/auth";
-import LedgerDetail from "./components/pages/ledger-detai";
+import LedgerDetail from "./components/pages/ledger-detail";
 import Ledger from "./components/pages/ledger-form";
 import LedgerList from "./components/pages/ledger-list";
 
