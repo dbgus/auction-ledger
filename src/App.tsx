@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import PropertyInfo from "./components/property-info";
 import Investment from "./components/investment";
 import StepComponent from "./components/step";
@@ -56,12 +56,19 @@ const step4InitContent: Istep4InitContent = {
 };
 
 function App() {
+  const navigate = useNavigate();
   const [step, setStep] = useState<number>(3);
   const [step1Content, setStep1Content] = useState(step1InitContent);
   const [step2Content, setStep2Content] = useState(step2InitContent);
   const [step2Summary, setStep2Summary] = useState(step2InitSummary);
   const [step3Content, setStep3Content] = useState(step3InitContent);
   const [step4Content, setStep4Content] = useState(step4InitContent);
+
+  useEffect(() => {
+    // check token
+    const token = localStorage.getItem("token");
+    if (!token) navigate("/auth");
+  }, []);
 
   useEffect(() => {
     setStep2Summary({
@@ -118,31 +125,29 @@ function App() {
   ];
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/auth" element={<Auth />} />
-        <Route
-          path="/ledger/:id"
-          element={
-            <div
-              style={{
-                width: "50%",
-                margin: "0 auto",
-                marginTop: 100,
-                marginBottom: 100,
-              }}
-            >
-              <StepComponent
-                step={step}
-                stepLabel={stepLabel}
-                stepChange={(step: number) => setStep(step)}
-                currentViewComponent={components[step]}
-              />
-            </div>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/auth" element={<Auth />} />
+      <Route
+        path="/ledger/:id"
+        element={
+          <div
+            style={{
+              width: "50%",
+              margin: "0 auto",
+              marginTop: 100,
+              marginBottom: 100,
+            }}
+          >
+            <StepComponent
+              step={step}
+              stepLabel={stepLabel}
+              stepChange={(step: number) => setStep(step)}
+              currentViewComponent={components[step]}
+            />
+          </div>
+        }
+      />
+    </Routes>
   );
 }
 
